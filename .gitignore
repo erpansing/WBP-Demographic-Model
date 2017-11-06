@@ -1,0 +1,13 @@
+*.csv
+*.DS_Store
+*.xls
+*.xlsx
+*.Rda
+*.Rdata
+*.html
+*.pdf
+*.md
+*.doc
+*.zip
+*.png
+
