@@ -4,7 +4,7 @@
 output: html_notebook
 ---
   
-  ```{r global_options, include=FALSE}
+```{r global_options, include=FALSE}
 knitr::opts_chunk$set(fig.width=12, fig.height=8, fig.path='Figs/',
                       echo=FALSE, warning=FALSE, message=FALSE)
 ```
@@ -166,19 +166,17 @@ n1 <- c(500, 0, 0, 0, 0,  0)
 project <- function(projection_time, n0, reps = 100){    # stochastic projection function that tracks stage based pop sizes over time for each simulation
   
   results <- stochastic_matrixes <-   #Create null matrix that will hold stage
-    array(0, dim = c(projection_time, length(n0) + 1, reps)) #based population sizes
+  array(0, dim = c(projection_time, length(n0) + 1, reps)) #based population sizes
   
-  if(j == 1){           #Create null vectors that will hold fire intervals for each iteration
+  for(j in 1:reps){     # Iterate through i years of population growth j times
+    
+     if(j == 1){           #Create null vectors that will hold fire intervals for each iteration
     intervals <- NULL
     iteration <- NULL
   } else if(j != 1){
     intervals <- intervals
     iteration <- iteration
   }
-  
-  for(j in 1:reps){     # Iterate through i years of population growth j times
-    
-    n <- n0
     
     interval <- rgamma(4, shape = fire_alpha, rate = fire_beta)  %>% 
       round(., 0) %>% 
@@ -187,11 +185,11 @@ project <- function(projection_time, n0, reps = 100){    # stochastic projection
   
     intervals <- append(intervals, interval, after = length(intervals))
     
-    iteration <- append(iteration, rep(j, length(intervals)), 
+    iteration <- append(iteration, rep(j, length(interval)), 
                         after = length(iteration))
     
   
-    pops <- matrix(0, nrow = projection_time , ncol = length(n0)) 
+    pops <- matrix(0, nrow = projection_time , ncol = length(n)) 
     
     for(i in 1:projection_time){  #get population
       t <-  i #time counter
@@ -259,7 +257,7 @@ project <- function(projection_time, n0, reps = 100){    # stochastic projection
 
 
 
-projection20 <- project(projection_time = 500, n0 = n, reps = 1) 
+projection <- project(projection_time = 500, n0 = n, reps = 50) 
 
 projection <- gather(projection20$pop_sizes, Stage, Count, -Iteration, -t) %>%
   filter(., !Stage == "SEED1") %>%
@@ -269,11 +267,11 @@ projection <- gather(projection20$pop_sizes, Stage, Count, -Iteration, -t) %>%
   ungroup(.)
 
 
-ggplot(data = projection, aes(x = t, y = Count, group = Iteration)) +
+ggplot(data = projection, aes(x = t, y = Count, col = Iteration)) +
   geom_line() +
   theme(legend.position="none")
 
-hist(projection$Count)
+hist(projection$Count[projection$t == 500], breaks = 100)
 
 ```
 

@@ -56,6 +56,10 @@ get_gammas <- function(mu, var){
 }
 
 
+get_negativeBinomial <- function(mu, var){
+  lambda <- mu
+  
+}
 
 
 reps <- 10000
@@ -304,12 +308,16 @@ cones_1980_2016 <- c(25.69, 13.23, 16.98, 17.4, 6.43, 27.2, 1.37, 2.54, 2.40, 48
 mu.cones <- mean(cones_1980_2016)
 var.cones <- var(cones_1980_2016)
 
-cone_params <- get_gammas(mu = mu.cones, var = var.cones)
+# cone_params <- get_gammas(mu = mu.cones, var = var.cones)
+# 
+# cone_alpha <- cone_params$alpha
+# cone_beta  <- cone_params$beta
+# cone_theta <- cone_params$theta
 
-cone_alpha <- cone_params$alpha
-cone_theta <- cone_params$theta
 
-rm(cones_1980_2016, mu.cones, var.cones, cone_params)
+
+
+rm(cones_1980_2016, mu.cones, var.cones)
 
 ##-----------------------------------------------------------##
 ##                                                           ##
