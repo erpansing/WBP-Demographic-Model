@@ -67,7 +67,6 @@ survival_vector <- function(size){   #survival vector
 }
 
 survival_vector(size = 1)
-
 # Germination 
 
 germ_SEED1 <- function(size){
@@ -86,11 +85,11 @@ germ_SEED2 <- function(size){
 # Residence time
 
 residence_SD   <- function(x){   # # years as seedling (SD)
-  return(30) 
+  return(14) 
 }
 
 residence_SAP  <- function(x){   # # years as sapling (SAP)
-  return(30) 
+  return(34) 
 }   
 
 residence_RMA  <- function(x){   # # years as reproductively mature

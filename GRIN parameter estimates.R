@@ -38,8 +38,7 @@ get_betas <- function(data, reps, size){
   
   
   result <- list(samp.dist  = output_vector, mean.samp.dist = mean,
-                 var.samp.dist = var, lower.samp.dist = lower,
-                 upper.samp.dist = upper, alpha = alpha, beta = beta)
+                 var.samp.dist = var, quantiles = c(lower, upper), alpha = alpha, beta = beta)
   return(result)
 }
 
@@ -271,6 +270,8 @@ SD_beta <- estBetaParams(mu = SD_survival_mean, var = SD_survival_var)
 
 SD_survive_alpha <- SD_beta$alpha
 SD_survive_beta  <- SD_beta$beta
+
+quantile(rbeta(5000, shape1 = SD_survive_alpha, shape2 = SD_survive_beta)
 
 rm(SD_beta)
 
